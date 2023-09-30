@@ -19,4 +19,12 @@ namespace Wallet
             Amount = amount;
         }
     }
+
+    public struct IncreaseComponent : IComponentData
+    {
+    }
+
+    public struct ResetComponent : IComponentData
+    {
+    }
 }
