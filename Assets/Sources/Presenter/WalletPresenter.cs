@@ -10,11 +10,6 @@ namespace Wallet
         public WalletPresenter()
         {
             _world = World.DefaultGameObjectInjectionWorld;
-            //_world = new World("WalletWorld");
-            //World.DefaultGameObjectInjectionWorld = _world;
-            //_world.CreateSystem<LoadSystem>();
-            //_world.CreateSystemManaged<IncreaseSystem>();
-            //_world.CreateSystem<ResetSystem>();
         }
 
         public int GetCoinAmount()
@@ -104,6 +99,26 @@ namespace Wallet
                     _world.EntityManager.AddComponentData(entities[i], new ResetComponent());
                 }
             }
+        }
+
+        public void SaveToPlayerPrefs(string key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void LoadFromPlayerPrefs(string key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SaveToFile(string fileName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void LoadFromFile(string fileName)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
