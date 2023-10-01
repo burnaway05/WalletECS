@@ -4,7 +4,7 @@ using Unity.Entities;
 namespace Wallet
 {
     [UpdateAfter(typeof(LoadSystem))]
-    public class IncreaseSystem : ComponentSystemBase
+    public partial class IncreaseSystem : SystemBase
     {
         private EntityQuery _requiredQuery;
 
@@ -13,7 +13,7 @@ namespace Wallet
             _requiredQuery = GetEntityQuery(ComponentType.ReadOnly(typeof(IncreaseComponent)));
         }
 
-        public override void Update()
+        protected override void OnUpdate()
         {
             var entities = _requiredQuery.ToEntityArray(Allocator.Temp);
             for (int i = 0; i < entities.Length; i++)

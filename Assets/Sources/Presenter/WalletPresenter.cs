@@ -103,12 +103,20 @@ namespace Wallet
 
         public void SaveToPlayerPrefs(string key)
         {
-            throw new System.NotImplementedException();
+            var entities = GetResources();
+            for (int i = 0; i < entities.Length; i++)
+            {
+                _world.EntityManager.AddComponentData(entities[i], new SaveToPlayerPrefsComponent(key));
+            }
         }
 
         public void LoadFromPlayerPrefs(string key)
         {
-            throw new System.NotImplementedException();
+            var entities = GetResources();
+            for (int i = 0; i < entities.Length; i++)
+            {
+                _world.EntityManager.AddComponentData(entities[i], new LoadFromPlayerPrefsComponent(key));
+            }
         }
 
         public void SaveToFile(string fileName)
