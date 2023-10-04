@@ -33,6 +33,11 @@ namespace Wallet
 
         private async void LoadAsync(string fileName)
         {
+            if (!File.Exists(fileName))
+            {
+                return;
+            }
+
             using (FileStream sourceStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
             {
                 StringBuilder sb = new StringBuilder();
@@ -51,10 +56,14 @@ namespace Wallet
                 for (int i = 0; i < entities.Length; i++)
                 {
                     var resource = EntityManager.GetComponentData<ResourceComponent>(entities[i]);
-                    ResourceType resourceType = JsonUtility.FromJson<ResourceComponent>(result[i].ToString()).Type;
-                    if (resourceType == resource.Type)
+
+                    for (int j = 0; j < result.Count; j++)
                     {
-                        EntityManager.AddComponentData(entities[i], new FinishedLoadingComponent(result[i].ToString()));
+                        ResourceType resourceType = JsonUtility.FromJson<ResourceComponent>(result[j].ToString()).Type;
+                        if (resourceType == resource.Type)
+                        {
+                            EntityManager.AddComponentData(entities[i], new FinishedLoadingComponent(result[j].ToString()));
+                        }
                     }
                 }
             }
