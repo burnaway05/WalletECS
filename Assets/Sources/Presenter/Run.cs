@@ -6,12 +6,17 @@ namespace Wallet
     {
         private WalletPresenter _presenter;
 
-        void Start()
+        private void Start()
         {
-            _presenter = new WalletPresenter();
-
             IWalletWindow view = FindObjectOfType<MainWindow>();
+
+            _presenter = new WalletPresenter(view);
             view.Initialize(_presenter); 
+        }
+
+        private void Update()
+        {
+            _presenter.Update();
         }
     }
 }

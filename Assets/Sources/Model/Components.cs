@@ -78,4 +78,8 @@ namespace Wallet
             SaveInfo = saveInfo;
         }
     }
+
+    public struct RepaintRequiredComponent : IComponentData
+    {
+    }
 }

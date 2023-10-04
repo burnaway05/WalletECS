@@ -2,7 +2,7 @@ using Unity.Entities;
 
 namespace Wallet
 {
-    public class InitializeSystem : ComponentSystemBase
+    public partial class InitializeSystem : SystemBase
     {
         protected override void OnCreate()
         {
@@ -11,9 +11,10 @@ namespace Wallet
 
             Entity gemEntity = EntityManager.CreateEntity();
             EntityManager.AddComponentData(gemEntity, new ResourceComponent(ResourceType.Gem, 10));
+            EntityManager.CreateEntity(ComponentType.ReadOnly(typeof(RepaintRequiredComponent)));
         }
 
-        public override void Update()
+        protected override void OnUpdate()
         {
         }
     }

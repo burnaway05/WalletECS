@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public interface IWalletWindow
 {
     void Initialize(IWalletPresenter presenter);
+    void Repaint();
 }
 
 public interface IWalletPresenter
@@ -45,11 +46,6 @@ public class MainWindow : MonoBehaviour, IWalletWindow
         _loadFromPlayerPrefs.onClick.AddListener(LoadFromPlayerPrefs);
         _saveToFile.onClick.AddListener(SaveToFile);
         _loadFromFile.onClick.AddListener(LoadFromFile);
-    }
-
-    private void Update()
-    {
-        Repaint();
     }
 
     public void Repaint()

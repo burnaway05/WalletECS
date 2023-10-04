@@ -1,16 +1,28 @@
 using Unity.Collections;
 using Unity.Entities;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
+using UnityEngine;
 
 namespace Wallet
 {
     public class WalletPresenter : IWalletPresenter
     {
         private World _world;
+        private IWalletWindow _window;
 
-        public WalletPresenter()
+        public WalletPresenter(IWalletWindow mainWindow)
         {
             _world = World.DefaultGameObjectInjectionWorld;
+            _window = mainWindow;
+        }
+
+        public void Update()
+        {
+            var repaintEntity = _world.EntityManager.CreateEntityQuery(ComponentType.ReadOnly<RepaintRequiredComponent>()).ToEntityArray(Allocator.Temp);
+            if (repaintEntity.Length > 0)
+            {
+                _world.EntityManager.DestroyEntity(repaintEntity);
+                _window.Repaint();
+            }
         }
 
         public int GetCoinAmount()

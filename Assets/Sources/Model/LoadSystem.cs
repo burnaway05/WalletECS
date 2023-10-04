@@ -1,6 +1,6 @@
-﻿using Unity.Collections;
+﻿using Codice.CM.Client.Differences;
+using Unity.Collections;
 using Unity.Entities;
-using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Wallet
@@ -27,6 +27,8 @@ namespace Wallet
 
             buffer.Playback(EntityManager);
             buffer.Dispose();
+
+            EntityManager.CreateEntity(ComponentType.ReadOnly(typeof(RepaintRequiredComponent)));
         }
     }
 }

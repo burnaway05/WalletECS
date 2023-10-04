@@ -1,14 +1,10 @@
-﻿using Mono.Cecil;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Wallet
 {

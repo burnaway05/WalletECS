@@ -24,6 +24,8 @@ namespace Wallet
                 EntityManager.SetComponentData(entities[i], resource);
                 EntityManager.RemoveComponent<IncreaseComponent>(entities[i]);
             }
+
+            EntityManager.CreateEntity(ComponentType.ReadOnly(typeof(RepaintRequiredComponent)));
         }
     }
 }
