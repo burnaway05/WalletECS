@@ -40,10 +40,11 @@ public class MainWindow : MonoBehaviour, IWalletWindow
         _presener = presenter;
         _coinSlot.Initialize(() => _presener.AddCoin(), () => _presener.ResetCoins());
         _gemSlot.Initialize(() => _presener.AddGem(), () => _presener.ResetGems());
-        _saveToPlayerPrefs.onClick.AddListener(() => _presener.SaveToPlayerPrefs(_keyInput.text));
-        _loadFromPlayerPrefs.onClick.AddListener(() => _presener.LoadFromPlayerPrefs(_keyInput.text));
-        _saveToFile.onClick.AddListener(() => _presener.SaveToFile(_fileNameInput.text));
-        _loadFromFile.onClick.AddListener(() => _presener.LoadFromFile(_fileNameInput.text));
+
+        _saveToPlayerPrefs.onClick.AddListener(SaveToPlayerPrefs);
+        _loadFromPlayerPrefs.onClick.AddListener(LoadFromPlayerPrefs);
+        _saveToFile.onClick.AddListener(SaveToFile);
+        _loadFromFile.onClick.AddListener(LoadFromFile);
     }
 
     private void Update()
@@ -55,5 +56,37 @@ public class MainWindow : MonoBehaviour, IWalletWindow
     {
         _coinSlot.SetAmount(_presener.GetCoinAmount());
         _gemSlot.SetAmount(_presener.GetGemAmount());
+    }
+
+    private void SaveToPlayerPrefs()
+    {
+        if (_keyInput.text.Length > 0)
+        {
+            _presener.SaveToPlayerPrefs(_keyInput.text);
+        }
+    }
+
+    private void LoadFromPlayerPrefs()
+    {
+        if (_keyInput.text.Length > 0)
+        {
+            _presener.LoadFromPlayerPrefs(_keyInput.text);
+        }
+    }
+
+    private void SaveToFile()
+    {
+        if (_fileNameInput.text.Length > 0)
+        {
+            _presener.SaveToFile(_fileNameInput.text);
+        }
+    }
+
+    private void LoadFromFile()
+    {
+        if (_fileNameInput.text.Length > 0)
+        {
+            _presener.LoadFromFile(_fileNameInput.text);
+        }
     }
 }

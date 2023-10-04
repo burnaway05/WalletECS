@@ -3,7 +3,7 @@ using Unity.Entities;
 
 namespace Wallet
 {
-    [UpdateAfter(typeof(LoadSystem))]
+    [UpdateAfter(typeof(InitializeSystem))]
     public partial class IncreaseSystem : SystemBase
     {
         private EntityQuery _requiredQuery;
@@ -11,6 +11,7 @@ namespace Wallet
         protected override void OnCreate()
         {
             _requiredQuery = GetEntityQuery(ComponentType.ReadOnly(typeof(IncreaseComponent)));
+            RequireAnyForUpdate(_requiredQuery);
         }
 
         protected override void OnUpdate()

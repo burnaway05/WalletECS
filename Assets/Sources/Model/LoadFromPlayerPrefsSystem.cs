@@ -19,7 +19,7 @@ namespace Wallet
             EntityCommandBuffer buffer = new EntityCommandBuffer(Allocator.TempJob);
             Entities.ForEach((Entity entity, ref ResourceComponent resource, ref LoadFromPlayerPrefsComponent save) =>
             {
-                var key = save.Key.ToString() + "_" + resource.Type.ToString();
+                var key = save.Key+ "_" + resource.Type;
                 if (PlayerPrefs.HasKey(key))
                 {
                     resource.Amount = PlayerPrefs.GetInt(key, resource.Amount);

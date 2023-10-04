@@ -48,4 +48,34 @@ namespace Wallet
             Key = key;
         }
     }
+
+    public struct SaveToFileComponent: IComponentData
+    {
+        public FixedString128Bytes FileName;
+
+        public SaveToFileComponent(FixedString128Bytes fileName)
+        {
+            FileName = fileName;
+        }
+    }
+
+    public struct LoadFromFileComponent: IComponentData
+    {
+        public FixedString128Bytes FileName;
+
+        public LoadFromFileComponent(FixedString128Bytes fileName)
+        {
+            FileName = fileName;
+        }
+    }
+
+    public struct FinishedLoadingComponent : IComponentData
+    {
+        public FixedString512Bytes SaveInfo;
+
+        public FinishedLoadingComponent(FixedString512Bytes saveInfo)
+        {
+            SaveInfo = saveInfo;
+        }
+    }
 }

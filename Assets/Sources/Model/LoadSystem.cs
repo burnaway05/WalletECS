@@ -1,20 +1,32 @@
+﻿using Unity.Collections;
 using Unity.Entities;
+using Unity.Plastic.Newtonsoft.Json.Linq;
+using UnityEngine;
 
 namespace Wallet
 {
-    public class LoadSystem : ComponentSystemBase
+    public partial class LoadSystem : SystemBase
     {
+        private EntityQuery _requiredQuery;
+
         protected override void OnCreate()
         {
-            Entity coinEntity = EntityManager.CreateEntity();
-            EntityManager.AddComponentData(coinEntity, new ResourceComponent(ResourceType.Coin, 0));
-
-            Entity gemEntity = EntityManager.CreateEntity();
-            EntityManager.AddComponentData(gemEntity, new ResourceComponent(ResourceType.Gem, 10));
+            _requiredQuery = GetEntityQuery(ComponentType.ReadOnly(typeof(FinishedLoadingComponent)));
+            RequireForUpdate(_requiredQuery);
         }
 
-        public override void Update()
+        protected override void OnUpdate()
         {
+            EntityCommandBuffer buffer = new EntityCommandBuffer(Allocator.TempJob);
+            Entities.ForEach((Entity entity, ref ResourceComponent resource, ref FinishedLoadingComponent load) =>
+            {
+                ResourceComponent loadedResource = JsonUtility.FromJson<ResourceComponent>(load.SaveInfo.Value);
+                buffer.SetComponent(entity, loadedResource);
+                buffer.RemoveComponent<FinishedLoadingComponent>(entity);
+            }).Run();
+
+            buffer.Playback(EntityManager);
+            buffer.Dispose();
         }
     }
 }

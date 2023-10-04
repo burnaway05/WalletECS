@@ -11,6 +11,7 @@ namespace Wallet
         protected override void OnCreate()
         {
             _requiredQuery = GetEntityQuery(ComponentType.ReadOnly(typeof(ResetComponent)));
+            RequireAnyForUpdate(_requiredQuery);
         }
 
         public override void Update()

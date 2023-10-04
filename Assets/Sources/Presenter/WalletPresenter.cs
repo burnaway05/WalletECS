@@ -1,5 +1,6 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace Wallet
 {
@@ -121,12 +122,14 @@ namespace Wallet
 
         public void SaveToFile(string fileName)
         {
-            throw new System.NotImplementedException();
+            var entity = _world.EntityManager.CreateEntity();
+            _world.EntityManager.AddComponentData(entity, new SaveToFileComponent(fileName));
         }
 
         public void LoadFromFile(string fileName)
         {
-            throw new System.NotImplementedException();
+            var entity = _world.EntityManager.CreateEntity();
+            _world.EntityManager.AddComponentData(entity, new LoadFromFileComponent(fileName));
         }
     }
 }
